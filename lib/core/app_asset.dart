@@ -1,15 +1,15 @@
 class AppAsset {
   const AppAsset._();
 
-  static const comharStandingDesk1 =
+  static const vortexGamingKeyboard1 =
       "assets/images/2.0x/vortex_gaming_keyboard1.png";
-  static const comharStandingDesk2 =
+  static const vortexGamingKeyboard2 =
       "assets/images/vortex_gaming_keyboard2.png";
-  static const comharStandingDesk3 =
+  static const vortexGamingKeyboard3 =
       "assets/images/vortex_gaming_keyboard3.png";
-  static const comharStandingDesk4 =
+  static const vortexGamingKeyboard4 =
       "assets/images/vortex_gaming_keyboard4.png";
-  static const comharStandingDesk5 =
+  static const vortexGamingKeyboard5 =
       "assets/images/vortex_gaming_keyboard5.png";
 
   static const ergonomicGamingDesk1 =
@@ -47,6 +47,14 @@ class AppAsset {
   static const hyperxCloudStinger3 = "assets/images/hyperx_cloud_stinger_3.png";
   static const hyperxCloudStinger4 = "assets/images/hyperx_cloud_stinger_4.png";
   static const hyperxCloudStinger5 = "assets/images/hyperx_cloud_stinger_5.png";
+
+  static const vortexChairSeries1 = "assets/images/vortex_chair_series1.png";
+  static const vortexChairSeries2 = "assets/images/vortex_chair_series2.png";
+  static const vortexChairSeries3 = "assets/images/vortex_chair_series3.png";
+  static const vortexChairSeries4 = "assets/images/vortex_chair_series4.png";
+  static const vortexChairSeries5 = "assets/images/vortex_chair_series5.png";
+  static const vortexChairSeries6 = "assets/images/vortex_chair_series6.png";
+  static const vortexChairSeries7 = "assets/images/vortex_chair_series7.png";
 
   static const profilePic = "assets/images/profile_pic.png";
   static const githubPic = "assets/images/github.png";

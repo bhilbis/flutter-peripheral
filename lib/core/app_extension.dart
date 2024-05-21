@@ -24,6 +24,13 @@ extension IterableExtension<T> on Iterable<T> {
     );
     return result;
   }
+
+  T? firstWhereOrNull(bool Function(T element) test) {
+    for (T element in this) {
+      if (test(element)) return element;
+    }
+    return null;
+  }
 }
 
 extension WidgetExtension on Widget {

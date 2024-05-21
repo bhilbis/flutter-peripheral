@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:flutter_peripheral/core/app_extension.dart';
 import 'package:flutter_peripheral/src/model/peripheral.dart';
 
 class OfficePeripheralController extends GetxController {
@@ -35,30 +34,28 @@ class OfficePeripheralController extends GetxController {
   }
 
   void decreaseItem(Peripheral peripheral) {
-    if (peripheral.quantity > 0) {
+    if (peripheral.quantity > 1) {
       peripheral.quantity--;
-      update();
       if (peripheral.quantity == 0) {
         cartPeripheral.remove(peripheral);
       }
+      update();
       calculateTotalPrice();
     }
   }
 
   void addToCart(Peripheral peripheral) {
     if (peripheral.quantity > 0) {
-      cartPeripheral.add(peripheral);
-      cartPeripheral.assignAll(cartPeripheral.distinctBy((item) => item));
+      final existingPeripheral =
+          cartPeripheral.firstWhereOrNull((p) => p.title == peripheral.title);
+      if (existingPeripheral != null) {
+        existingPeripheral.quantity += peripheral.quantity;
+      } else {
+        cartPeripheral.add(peripheral);
+      }
       calculateTotalPrice();
     }
   }
-
-  // calculateTotalPrice() {
-  //   totalPrice.value = 0;
-  //   for (var element in cartPeripheral) {
-  //     totalPrice.value += element.quantity * element.price;
-  //   }
-  // }
 
   void calculateTotalPrice() {
     totalPrice.value = cartPeripheral.fold(

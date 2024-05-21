@@ -9,15 +9,15 @@ class OfficePeripheralListScreen extends StatelessWidget {
   const OfficePeripheralListScreen({super.key});
 
   PreferredSize _appBar() {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(105),
+    return const PreferredSize(
+      preferredSize: Size.fromHeight(105),
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Hello Bilbis", style: h2Style),

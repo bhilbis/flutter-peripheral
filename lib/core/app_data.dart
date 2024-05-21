@@ -1,45 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_peripheral/core/app_asset.dart';
 import 'package:flutter_peripheral/src/model/peripheral.dart';
-import 'package:flutter_peripheral/src/model/peripheral_color.dart';
+// import 'package:flutter_peripheral/src/model/peripheral_color.dart';
 import 'package:flutter_peripheral/src/model/bottom_navigation_item.dart';
 
 class AppData {
   const AppData._();
 
-  // static const dummyText =
-  //     """Lorem Ipsum is simply dummy text of the printing and typesetting
-  //      industry. Lorem Ipsum has been the industry's standard dummy text ever
-  //       since the 1500s, when an unknown printer took a galley of type and
-  //        scrambled it to make a type specimen book. It has survived not only
-  //        five centuries, but also the leap into electronic typesetting,
-  //         remaining essentially unchanged. It was popularised in the 1960s with
-  //          the release of Letraset sheets containing Lorem Ipsum passages,
-  //           and more recently with desktop publishing software like Aldus
-  //            PageMaker including versions of Lorem Ipsum.""";
-
   static List<Peripheral> peripheralList = [
     Peripheral(
+      id: '1',
       quantity: 1,
       isFavorite: false,
-      title: 'Keyboard',
+      title: 'VORTEXSERIES GT-9 WIRELESS MECHANICAL KEYBOARD GASKET MOUNT',
       description: '',
       price: 469.99,
       score: 3.5,
       images: [
-        AppAsset.comharStandingDesk1,
-        AppAsset.comharStandingDesk2,
-        AppAsset.comharStandingDesk3,
-        AppAsset.comharStandingDesk4,
-        AppAsset.comharStandingDesk5,
+        AppAsset.vortexGamingKeyboard1,
+        AppAsset.vortexGamingKeyboard2,
+        AppAsset.vortexGamingKeyboard3,
+        AppAsset.vortexGamingKeyboard4,
+        AppAsset.vortexGamingKeyboard5,
       ],
-      colors: <PeripheralColor>[
-        PeripheralColor(color: const Color(0xFF616161), isSelected: true),
-        PeripheralColor(color: const Color(0xFF424242)),
-      ],
+      // colors: <PeripheralColor>[
+      //   PeripheralColor(color: const Color(0xFF616161), isSelected: true),
+      //   PeripheralColor(color: const Color(0xFF424242)),
+      // ],
     ),
     Peripheral(
       isFavorite: false,
+      id: '2',
       quantity: 1,
       title: 'Ergonomic Gaming Desk with Mouse Pad',
       description:
@@ -55,12 +46,13 @@ class AppData {
         AppAsset.ergonomicGamingDesk4,
         AppAsset.ergonomicGamingDesk5,
       ],
-      colors: <PeripheralColor>[
-        PeripheralColor(color: const Color(0xFF5d4037), isSelected: true),
-        PeripheralColor(color: const Color(0xFF424242)),
-      ],
+      // colors: <PeripheralColor>[
+      //   PeripheralColor(color: const Color(0xFF5d4037), isSelected: true),
+      //   PeripheralColor(color: const Color(0xFF424242)),
+      // ],
     ),
     Peripheral(
+      id: '3',
       quantity: 1,
       isFavorite: false,
       title: 'Pulsefire Dart - Wireless Gaming Mouse',
@@ -79,12 +71,13 @@ class AppData {
         AppAsset.hyperxPulsefireDesk5,
         AppAsset.hyperxPulsefireDesk6,
       ],
-      colors: <PeripheralColor>[
-        PeripheralColor(color: const Color(0xFF616161), isSelected: true),
-        PeripheralColor(color: const Color(0xFF212121)),
-      ],
+      // colors: <PeripheralColor>[
+      //   PeripheralColor(color: const Color(0xFF616161), isSelected: true),
+      //   PeripheralColor(color: const Color(0xFF212121)),
+      // ],
     ),
     Peripheral(
+      id: '4',
       quantity: 1,
       isFavorite: false,
       title: 'Fantech AGILE MP453 Size L Mousepad Gaming',
@@ -102,12 +95,13 @@ class AppData {
         AppAsset.mousepadGaming5,
         AppAsset.mousepadGaming6,
       ],
-      colors: <PeripheralColor>[
-        PeripheralColor(color: const Color(0xFF455a64), isSelected: true),
-        PeripheralColor(color: const Color(0xFF263238)),
-      ],
+      // colors: <PeripheralColor>[
+      //   PeripheralColor(color: const Color(0xFF455a64), isSelected: true),
+      //   PeripheralColor(color: const Color(0xFF263238)),
+      // ],
     ),
     Peripheral(
+      id: '5',
       quantity: 1,
       isFavorite: false,
       title: 'Cloud Stinger - Comfortable Gaming Headsets',
@@ -125,10 +119,35 @@ class AppData {
         AppAsset.hyperxCloudStinger4,
         AppAsset.hyperxCloudStinger5,
       ],
-      colors: <PeripheralColor>[
-        PeripheralColor(color: const Color(0xFF5d4037), isSelected: true),
-        PeripheralColor(color: const Color(0xFF455a64)),
+      // colors: <PeripheralColor>[
+      //   PeripheralColor(color: const Color(0xFF5d4037), isSelected: true),
+      //   PeripheralColor(color: const Color(0xFF455a64)),
+      // ],
+    ),
+    Peripheral(
+      id: '6',
+      quantity: 1,
+      isFavorite: false,
+      title: 'VORTEXSERIES S SERIES GAMING CHAIR',
+      description:
+          'The VortexSeries S Series Gaming Chair offers unparalleled comfort and support for avid gamers. Featuring ergonomic design,'
+          'adjustable armrests, lumbar support, and a reclining backrest, this chair ensures optimal posture during long gaming sessions.'
+          'Built with high-quality materials and a sleek, modern aesthetic, the VortexSeries S Series is the ultimate addition to any gaming setup.',
+      price: 113.42,
+      score: 4.2,
+      images: [
+        AppAsset.vortexChairSeries1,
+        AppAsset.vortexChairSeries2,
+        AppAsset.vortexChairSeries3,
+        AppAsset.vortexChairSeries4,
+        AppAsset.vortexChairSeries5,
+        AppAsset.vortexChairSeries6,
+        AppAsset.vortexChairSeries7,
       ],
+      // colors: <PeripheralColor>[
+      //   PeripheralColor(color: const Color(0xFF5d4037), isSelected: true),
+      //   PeripheralColor(color: const Color(0xFF455a64)),
+      // ],
     ),
   ];
 

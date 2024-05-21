@@ -7,27 +7,44 @@ import 'package:flutter_peripheral/core/app_extension.dart';
 import 'package:flutter_peripheral/src/model/peripheral.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_peripheral/src/view/widget/rating_bar.dart';
-import 'package:flutter_peripheral/src/view/screen/home_screen.dart';
 import 'package:flutter_peripheral/src/view/widget/counter_button.dart';
 import 'package:flutter_peripheral/src/controller/office_peripheral_controller.dart';
 
-class OfficePeripheralDetailScreen extends StatelessWidget {
+class OfficePeripheralDetailScreen extends StatefulWidget {
   final Peripheral peripheral;
 
   const OfficePeripheralDetailScreen({
-    super.key,
+    Key? key,
     required this.peripheral,
-  });
+  }) : super(key: key);
+
+  @override
+  _OfficePeripheralDetailScreenState createState() =>
+      _OfficePeripheralDetailScreenState();
+}
+
+class _OfficePeripheralDetailScreenState
+    extends State<OfficePeripheralDetailScreen> {
+  late int localQuantity;
+  final OfficePeripheralController controller =
+      Get.find<OfficePeripheralController>();
+
+  @override
+  void initState() {
+    super.initState();
+    localQuantity = widget.peripheral.quantity;
+  }
 
   PreferredSizeWidget _appBar(BuildContext context) {
     return AppBar(
       actions: [
-        GetBuilder(
-          builder: (OfficePeripheralController controller) {
+        GetBuilder<OfficePeripheralController>(
+          builder: (controller) {
             return IconButton(
               splashRadius: 18.0,
-              onPressed: () => controller.isFavoritePeripheral(peripheral),
-              icon: peripheral.isFavorite
+              onPressed: () =>
+                  controller.isFavoritePeripheral(widget.peripheral),
+              icon: widget.peripheral.isFavorite
                   ? const Icon(Icons.bookmark, color: Colors.black)
                   : const Icon(Icons.bookmark_border, color: Colors.black),
             );
@@ -41,11 +58,11 @@ class OfficePeripheralDetailScreen extends StatelessWidget {
           Navigator.pop(context);
         },
       ),
-      title: Text(peripheral.title, style: h2Style),
+      title: Text(widget.peripheral.title, style: h2Style),
     );
   }
 
-  Widget bottomBar() {
+  Widget bottomBar(OfficePeripheralController controller) {
     return Container(
       padding: const EdgeInsets.all(15),
       height: 90,
@@ -65,7 +82,8 @@ class OfficePeripheralDetailScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 5),
-              FittedBox(child: Text("\$${peripheral.price}", style: h2Style))
+              FittedBox(
+                  child: Text("\$${widget.peripheral.price}", style: h2Style))
             ],
           ),
           ElevatedButton(
@@ -76,7 +94,10 @@ class OfficePeripheralDetailScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            onPressed: () => controller.addToCart(peripheral),
+            onPressed: () {
+              controller.addToCart(
+                  widget.peripheral.copyWith(quantity: localQuantity));
+            },
             child: const Text("Add to cart"),
           )
         ],
@@ -93,7 +114,7 @@ class OfficePeripheralDetailScreen extends StatelessWidget {
         children: [
           PageView.builder(
             onPageChanged: controller.switchBetweenPageViewItems,
-            itemCount: peripheral.images.length,
+            itemCount: widget.peripheral.images.length,
             itemBuilder: (_, index) {
               return Padding(
                 padding: const EdgeInsets.only(left: 15),
@@ -102,7 +123,7 @@ class OfficePeripheralDetailScreen extends StatelessWidget {
                   child: Hero(
                     tag: index,
                     child: Image.asset(
-                      peripheral.images[index],
+                      widget.peripheral.images[index],
                       width: 150,
                       height: 150,
                       fit: BoxFit.cover,
@@ -122,7 +143,7 @@ class OfficePeripheralDetailScreen extends StatelessWidget {
                     activeDotColor: Colors.white,
                   ),
                   activeIndex: controller.currentPageViewItemIndicator.value,
-                  count: peripheral.images.length,
+                  count: widget.peripheral.images.length,
                 );
               },
             ),
@@ -135,62 +156,72 @@ class OfficePeripheralDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    return WillPopScope(
-      onWillPop: () async {
-        controller.currentPageViewItemIndicator.value = 0;
-        return Future.value(true);
-      },
-      child: Scaffold(
-        bottomNavigationBar: bottomBar(),
-        appBar: _appBar(context),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                peripheralImageSlider(height),
-                Center(
-                  child: StarRatingBar(
-                    score: peripheral.score,
-                    itemSize: 20,
-                  ).fadeAnimation(0.4),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 10),
-                  child: const Text(
-                    "Description",
-                    style: h2Style,
-                    textAlign: TextAlign.end,
-                  ).fadeAnimation(0.6),
-                ),
-                Text(
-                  peripheral.description,
-                  maxLines: 5,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.black45),
-                ).fadeAnimation(0.8),
-                const SizedBox(height: 20),
-                Row(
+    return GetBuilder<OfficePeripheralController>(
+      builder: (controller) {
+        return WillPopScope(
+          onWillPop: () async {
+            controller.currentPageViewItemIndicator.value = 0;
+            return Future.value(true);
+          },
+          child: Scaffold(
+            bottomNavigationBar: bottomBar(controller),
+            appBar: _appBar(context),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: GetBuilder(
-                      builder: (OfficePeripheralController controller) {
-                        return CounterButton(
-                          label: peripheral.quantity,
-                          onIncrementSelected: () =>
-                              controller.increaseItem(peripheral),
-                          onDecrementSelected: () =>
-                              controller.decreaseItem(peripheral),
-                        );
-                      },
-                    ))
+                    peripheralImageSlider(height),
+                    Center(
+                      child: StarRatingBar(
+                        score: widget.peripheral.score,
+                        itemSize: 20,
+                      ).fadeAnimation(0.4),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20, bottom: 10),
+                      child: const Text(
+                        "Description",
+                        style: h2Style,
+                        textAlign: TextAlign.end,
+                      ).fadeAnimation(0.6),
+                    ),
+                    Text(
+                      widget.peripheral.description,
+                      maxLines: 5,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(color: Colors.black45),
+                    ).fadeAnimation(0.8),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CounterButton(
+                            label: localQuantity,
+                            onIncrementSelected: () {
+                              setState(() {
+                                localQuantity++;
+                              });
+                            },
+                            onDecrementSelected: () {
+                              if (localQuantity > 1) {
+                                setState(() {
+                                  localQuantity--;
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ).fadeAnimation(1.0),
                   ],
-                ).fadeAnimation(1.0)
-              ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
