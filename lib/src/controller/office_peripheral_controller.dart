@@ -21,9 +21,10 @@ class OfficePeripheralController extends GetxController {
     update();
     if (peripheral.isFavorite) {
       favoritePeripheralList.add(peripheral);
-    }
-    if (!peripheral.isFavorite) {
-      favoritePeripheralList.removeWhere((element) => element == peripheral);
+      Get.snackbar('Favorite', '${peripheral.title} added to favorites');
+    } else {
+      favoritePeripheralList.remove(peripheral);
+      Get.snackbar('Favorite', '${peripheral.title} removed from favorites');
     }
   }
 
@@ -36,12 +37,11 @@ class OfficePeripheralController extends GetxController {
   void decreaseItem(Peripheral peripheral) {
     if (peripheral.quantity > 1) {
       peripheral.quantity--;
-      if (peripheral.quantity == 0) {
-        cartPeripheral.remove(peripheral);
-      }
-      update();
-      calculateTotalPrice();
+    } else {
+      cartPeripheral.remove(peripheral);
     }
+    update();
+    calculateTotalPrice();
   }
 
   void addToCart(Peripheral peripheral) {
@@ -54,6 +54,7 @@ class OfficePeripheralController extends GetxController {
         cartPeripheral.add(peripheral);
       }
       calculateTotalPrice();
+      Get.snackbar('Cart', '${peripheral.title} added to cart');
     }
   }
 
@@ -63,8 +64,24 @@ class OfficePeripheralController extends GetxController {
   }
 
   void clearCart() {
-    cartPeripheral.clear();
-    totalPrice.value = 0;
-    update();
+    if (cartPeripheral.isNotEmpty) {
+      cartPeripheral.clear();
+      totalPrice.value = 0;
+      update();
+      Get.snackbar('Cart', 'Cart cleared');
+    } else {
+      Get.snackbar('Cart', 'Cart is already empty');
+    }
+  }
+
+  void removeItem(Peripheral peripheral) {
+    if (cartPeripheral.contains(peripheral)) {
+      cartPeripheral.remove(peripheral);
+      calculateTotalPrice();
+      update();
+      Get.snackbar('Cart', '${peripheral.title} removed from cart');
+    } else {
+      Get.snackbar('Cart', 'Item is not in the cart');
+    }
   }
 }

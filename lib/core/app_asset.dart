@@ -1,16 +1,11 @@
 class AppAsset {
   const AppAsset._();
 
-  static const vortexGamingKeyboard1 =
-      "assets/images/2.0x/vortex_gaming_keyboard1.png";
-  static const vortexGamingKeyboard2 =
-      "assets/images/vortex_gaming_keyboard2.png";
-  static const vortexGamingKeyboard3 =
-      "assets/images/vortex_gaming_keyboard3.png";
-  static const vortexGamingKeyboard4 =
-      "assets/images/vortex_gaming_keyboard4.png";
-  static const vortexGamingKeyboard5 =
-      "assets/images/vortex_gaming_keyboard5.png";
+  static const epomakerTh66Keyboard1 = "assets/images/epomaker_th66_1.png";
+  static const epomakerTh66Keyboard2 = "assets/images/epomaker_th66_2.png";
+  static const epomakerTh66Keyboard3 = "assets/images/epomaker_th66_3.png";
+  static const epomakerTh66Keyboard4 = "assets/images/epomaker_th66_4.png";
+  static const epomakerTh66Keyboard5 = "assets/images/epomaker_th66_5.png";
 
   static const ergonomicGamingDesk1 =
       "assets/images/ergonomic_gaming_desk_1.jpg";
@@ -55,9 +50,6 @@ class AppAsset {
   static const vortexChairSeries5 = "assets/images/vortex_chair_series5.png";
   static const vortexChairSeries6 = "assets/images/vortex_chair_series6.png";
   static const vortexChairSeries7 = "assets/images/vortex_chair_series7.png";
-
-  static const profilePic = "assets/images/profile_pic.png";
-  static const githubPic = "assets/images/github.png";
 
   static const emptyCart = "assets/images/empty_cart.png";
   static const emptyFavorite = "assets/images/empty_favorite.png";

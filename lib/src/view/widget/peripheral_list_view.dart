@@ -8,12 +8,14 @@ class PeripheralListView extends StatelessWidget {
   final bool isHorizontal;
   final Function(Peripheral peripheral)? onTap;
   final List<Peripheral> peripheralList;
+  final void Function(Peripheral peripheral) onFavoriteToggle;
 
   const PeripheralListView({
     super.key,
     this.isHorizontal = true,
     this.onTap,
     required this.peripheralList,
+    required this.onFavoriteToggle,
   });
 
   Widget _peripheralScore(Peripheral peripheral) {
@@ -68,7 +70,16 @@ class PeripheralListView extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+              ),
+              IconButton(
+                icon: Icon(
+                  peripheral.isFavorite
+                      ? Icons.bookmark
+                      : Icons.bookmark_border,
+                  color: peripheral.isFavorite ? Colors.black : Colors.black,
+                ),
+                onPressed: () => onFavoriteToggle(peripheral),
+              ),
             ],
           );
 

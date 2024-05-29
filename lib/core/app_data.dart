@@ -12,16 +12,21 @@ class AppData {
       id: '1',
       quantity: 1,
       isFavorite: false,
-      title: 'VORTEXSERIES GT-9 WIRELESS MECHANICAL KEYBOARD GASKET MOUNT',
-      description: '',
+      title: 'Epomaker TH66 Pro',
+      description:
+          'The Epomaker TH66 Pro is a 65% mechanical keyboard with a bunch of features that enthusiasts love.'
+          'It\'s hot-swappable, so you can easily change the switches to match your typing preference.'
+          'It\'s also wireless with Bluetooth and 2.4 GHz connectivity, or you can use the included USB-C cable.'
+          'The TH66 Pro has south-facing LEDs for vibrant RGB lighting, and it even has a knob for volume control.'
+          'Check it out if you\'re looking for a feature-packed and customizable mechanical keyboard.',
       price: 469.99,
       score: 3.5,
       images: [
-        AppAsset.vortexGamingKeyboard1,
-        AppAsset.vortexGamingKeyboard2,
-        AppAsset.vortexGamingKeyboard3,
-        AppAsset.vortexGamingKeyboard4,
-        AppAsset.vortexGamingKeyboard5,
+        AppAsset.epomakerTh66Keyboard1,
+        AppAsset.epomakerTh66Keyboard2,
+        AppAsset.epomakerTh66Keyboard3,
+        AppAsset.epomakerTh66Keyboard4,
+        AppAsset.epomakerTh66Keyboard5,
       ],
       // colors: <PeripheralColor>[
       //   PeripheralColor(color: const Color(0xFF616161), isSelected: true),

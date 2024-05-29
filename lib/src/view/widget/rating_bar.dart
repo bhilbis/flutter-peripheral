@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_peripheral/core/app_color.dart';
 
 class StarRatingBar extends StatelessWidget {
   final double score;
@@ -27,7 +26,7 @@ class StarRatingBar extends StatelessWidget {
       itemBuilder: (_, __) => const Icon(
         Icons.star,
         size: 2.0,
-        color: AppColor.lightOrange,
+        color: Colors.orange,
       ),
       onRatingUpdate: (rating) {},
     );

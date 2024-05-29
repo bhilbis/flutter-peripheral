@@ -8,10 +8,12 @@ class CartListView extends StatelessWidget {
     super.key,
     required this.counterButton,
     required this.peripheralItems,
+    required this.onRemoveItem,
   });
 
   final Widget Function(Peripheral peripheral) counterButton;
   final List<Peripheral> peripheralItems;
+  final void Function(Peripheral peripheral) onRemoveItem;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +40,15 @@ class CartListView extends StatelessWidget {
                   const SizedBox(height: 5),
                   Text("\$${peripheral.price}", style: h2Style),
                   const SizedBox(height: 5),
+                  counterButton(peripheral),
+                  IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () => onRemoveItem(peripheral),
+                  ),
                 ],
               ),
               // Spacer(),
-              counterButton(peripheral)
+              // counterButton(peripheral)
             ],
           ).fadeAnimation(0.4 * index),
         );

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_peripheral/core/app_color.dart';
 import 'package:flutter_peripheral/core/app_style.dart';
 import 'package:flutter_peripheral/src/view/widget/bottom_bar.dart';
-import 'package:flutter_peripheral/src/view/screen/home_screen.dart';
 import 'package:flutter_peripheral/src/view/widget/empty_widget.dart';
 import 'package:flutter_peripheral/src/view/widget/counter_button.dart';
 import 'package:flutter_peripheral/src/view/widget/cart_list_view.dart';
@@ -12,7 +11,7 @@ import 'package:flutter_peripheral/src/controller/office_peripheral_controller.d
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
-  PreferredSizeWidget _appBar() {
+  PreferredSizeWidget _appBar(OfficePeripheralController controller) {
     return AppBar(
       title: const Text("Cart", style: h2Style),
       actions: [
@@ -27,28 +26,29 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar(),
-      bottomNavigationBar: Obx(
-        () {
-          return BottomBar(
-            priceLabel: "Total price",
-            priceValue: "\$${controller.totalPrice.value.toStringAsFixed(2)}",
-            buttonLabel: "Checkout",
-            onTap: controller.totalPrice > 0 ? () {} : null,
-          );
-        },
-      ),
-      body: GetBuilder(
-        builder: (OfficePeripheralController controller) {
-          return controller.cartPeripheral.isNotEmpty
+    return GetBuilder<OfficePeripheralController>(
+      builder: (controller) {
+        return Scaffold(
+          appBar: _appBar(controller),
+          bottomNavigationBar: Obx(
+            () {
+              return BottomBar(
+                priceLabel: "Total price",
+                priceValue:
+                    "\$${controller.totalPrice.value.toStringAsFixed(2)}",
+                buttonLabel: "Checkout",
+                onTap: controller.totalPrice > 0 ? () {} : null,
+              );
+            },
+          ),
+          body: controller.cartPeripheral.isNotEmpty
               ? Padding(
                   padding: const EdgeInsets.all(15),
                   child: CartListView(
                     peripheralItems: controller.cartPeripheral,
                     counterButton: (peripheral) {
                       return CounterButton(
-                        orientation: Axis.vertical,
+                        orientation: Axis.horizontal,
                         onIncrementSelected: () =>
                             controller.increaseItem(peripheral),
                         onDecrementSelected: () =>
@@ -56,11 +56,13 @@ class CartScreen extends StatelessWidget {
                         label: peripheral.quantity,
                       );
                     },
+                    onRemoveItem: (peripheral) =>
+                        controller.removeItem(peripheral),
                   ),
                 )
-              : const EmptyWidget(title: "Empty");
-        },
-      ),
+              : const EmptyWidget(title: "Empty"),
+        );
+      },
     );
   }
 }

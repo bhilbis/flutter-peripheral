@@ -1,12 +1,15 @@
+// office_peripheral_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_peripheral/core/app_data.dart';
 import 'package:flutter_peripheral/core/app_style.dart';
 import 'package:flutter_peripheral/src/model/peripheral.dart';
 import 'package:flutter_peripheral/src/view/widget/peripheral_list_view.dart';
 import 'package:flutter_peripheral/src/view/screen/office_peripheral_detail_screen.dart';
+import 'package:get/get.dart';
+import 'package:flutter_peripheral/src/controller/office_peripheral_controller.dart';
 
 class OfficePeripheralListScreen extends StatelessWidget {
-  const OfficePeripheralListScreen({super.key});
+  const OfficePeripheralListScreen({Key? key}) : super(key: key);
 
   PreferredSize _appBar() {
     return const PreferredSize(
@@ -24,7 +27,6 @@ class OfficePeripheralListScreen extends StatelessWidget {
                   Text("Buy Your favorite desk Here", style: h3Style),
                 ],
               ),
-              // IconButton(onPressed: () {}, icon: const Icon(Icons.menu))
             ],
           ),
         ),
@@ -39,7 +41,6 @@ class OfficePeripheralListScreen extends StatelessWidget {
         decoration: InputDecoration(
           hintText: 'Search',
           prefixIcon: const Icon(Icons.search, color: Colors.grey),
-          suffixIcon: const Icon(Icons.menu, color: Colors.grey),
           contentPadding: const EdgeInsets.all(20),
           border: textFieldStyle,
           focusedBorder: textFieldStyle,
@@ -65,20 +66,30 @@ class OfficePeripheralListScreen extends StatelessWidget {
       appBar: _appBar(),
       body: Padding(
         padding: const EdgeInsets.all(15),
-        child: ListView(
-          children: [
-            _searchBar(),
-            PeripheralListView(
-              peripheralList: AppData.peripheralList,
-              onTap: navigate,
-            ),
-            const Text("Popular", style: h2Style),
-            PeripheralListView(
-              peripheralList: AppData.peripheralList,
-              isHorizontal: false,
-              onTap: navigate,
-            ),
-          ],
+        child: GetBuilder<OfficePeripheralController>(
+          builder: (controller) {
+            return ListView(
+              children: [
+                _searchBar(),
+                PeripheralListView(
+                  peripheralList: AppData.peripheralList,
+                  onTap: navigate,
+                  onFavoriteToggle: (peripheral) {
+                    controller.isFavoritePeripheral(peripheral);
+                  },
+                ),
+                const Text("Popular", style: h2Style),
+                PeripheralListView(
+                  peripheralList: AppData.peripheralList,
+                  isHorizontal: false,
+                  onTap: navigate,
+                  onFavoriteToggle: (peripheral) {
+                    controller.isFavoritePeripheral(peripheral);
+                  },
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
