@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
+import 'package:get/get.dart';
 import 'package:flutter_peripheral/src/auth/auth_service.dart';
 import 'package:flutter_peripheral/src/auth/signup_screen.dart';
 import 'package:flutter_peripheral/src/view/screen/home_screen.dart';
@@ -22,6 +23,11 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     _email.dispose();
     _password.dispose();
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -60,9 +66,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             const SizedBox(height: 5),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              const Text("Already have an account? "),
+              const Text("Don't have an account? "),
               InkWell(
-                onTap: () => goToSignup(context),
+                onTap: () => goToSignup(),
                 child:
                     const Text("Signup", style: TextStyle(color: Colors.red)),
               )
@@ -74,24 +80,44 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  goToSignup(BuildContext context) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const SignupScreen()),
-      );
+  void goToSignup() {
+    Get.to(() => const SignupScreen(),
+        duration: const Duration(milliseconds: 800),
+        transition: Transition.rightToLeft);
+  }
 
-  goToHome(BuildContext context) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+  void goToHome() {
+    Get.offAll(() => const HomeScreen(),
+        duration: const Duration(milliseconds: 800),
+        transition: Transition.fadeIn);
+  }
 
   _login() async {
-    final user =
-        await _auth.loginUserWithEmailAndPassword(_email.text, _password.text);
+    final email = _email.text;
+    final password = _password.text;
+
+    // if (!_isValidEmail(email)) {
+    //   _showSnackBar("Invalid email format. Please include '@'.");
+    //   return;
+    // }
+
+    final user = await _auth.loginUserWithEmailAndPassword(email, password);
 
     if (user != null) {
       log("User Logged In");
-      // ignore: use_build_context_synchronously
-      goToHome(context);
+      goToHome();
+    } else {
+      Get.snackbar(
+        "Error",
+        "Invalid email or password",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+
+    bool _isValidEmail(String email) {
+      return RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(email);
     }
   }
 }

@@ -1,15 +1,19 @@
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
   final _auth = FirebaseAuth.instance;
 
+  User? get currentUser => _auth.currentUser;
+
+  // Stream<User?> get authStateChange => _auth.authStateChanges();
+
   Future<User?> createUserWithEmailAndPassword(
-      String email, String password) async {
+      String email, String password, String username) async {
     try {
       final cred = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      await _auth.currentUser?.updateDisplayName(username);
       return cred.user;
     } catch (e) {
       log("Something went wrong");

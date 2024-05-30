@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter_peripheral/src/auth/auth_service.dart';
 import 'package:flutter_peripheral/src/auth/login_screen.dart';
-import 'package:flutter_peripheral/src/view/screen/home_screen.dart';
+import 'package:get/get.dart';
 // import 'package:auth_firebase/widgets/button.dart';
 // import 'package:auth_firebase/widgets/textfield.dart';
 import 'package:flutter/material.dart';
@@ -16,16 +16,21 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final _auth = AuthService();
 
-  final _name = TextEditingController();
+  final _username = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    _name.dispose();
+    _username.dispose();
     _email.dispose();
     _password.dispose();
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -42,16 +47,16 @@ class _SignupScreenState extends State<SignupScreen> {
               height: 50,
             ),
             TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Enter Name",
                 labelText: "Name",
                 border: OutlineInputBorder(),
               ),
-              controller: _name,
+              controller: _username,
             ),
             const SizedBox(height: 20),
             TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   hintText: "Enter Email",
                   labelText: "Email",
                   border: OutlineInputBorder()),
@@ -59,7 +64,7 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
             const SizedBox(height: 20),
             TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Enter Password",
                 labelText: "Password",
                 border: OutlineInputBorder(),
@@ -70,13 +75,13 @@ class _SignupScreenState extends State<SignupScreen> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: _signup,
-              child: Text("Signup"),
+              child: const Text("Signup"),
             ),
             const SizedBox(height: 5),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               const Text("Already have an account? "),
               InkWell(
-                onTap: () => goToLogin(context),
+                onTap: () => goToLogin(),
                 child: const Text("Login", style: TextStyle(color: Colors.red)),
               )
             ]),
@@ -87,22 +92,27 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  goToLogin(BuildContext context) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
-      );
+  void goToLogin() {
+    Get.to(() => const LoginScreen(),
+        duration: const Duration(milliseconds: 800),
+        transition: Transition.leftToRight);
+  }
 
-  goToHome(BuildContext context) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+  void _signup() async {
+    final user = await _auth.createUserWithEmailAndPassword(
+        _email.text, _password.text, _username.text);
 
-  _signup() async {
-    final user =
-        await _auth.createUserWithEmailAndPassword(_email.text, _password.text);
     if (user != null) {
-      log("User Created Succesfully");
-      goToHome(context);
+      log("User Created Successfully");
+      goToLogin();
+    } else {
+      Get.snackbar(
+        "Error",
+        "Failed to create account",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     }
   }
 }

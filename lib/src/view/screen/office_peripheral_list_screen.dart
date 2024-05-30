@@ -1,4 +1,3 @@
-// office_peripheral_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_peripheral/core/app_data.dart';
 import 'package:flutter_peripheral/core/app_style.dart';
@@ -7,24 +6,50 @@ import 'package:flutter_peripheral/src/view/widget/peripheral_list_view.dart';
 import 'package:flutter_peripheral/src/view/screen/office_peripheral_detail_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter_peripheral/src/controller/office_peripheral_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class OfficePeripheralListScreen extends StatelessWidget {
+class OfficePeripheralListScreen extends StatefulWidget {
   const OfficePeripheralListScreen({Key? key}) : super(key: key);
 
-  PreferredSize _appBar() {
-    return const PreferredSize(
-      preferredSize: Size.fromHeight(105),
+  @override
+  _OfficePeripheralListScreenState createState() =>
+      _OfficePeripheralListScreenState();
+}
+
+class _OfficePeripheralListScreenState
+    extends State<OfficePeripheralListScreen> {
+  late String username;
+
+  @override
+  void initState() {
+    super.initState();
+    username = ''; // Initialize the username variable
+    fetchUserName();
+  }
+
+  Future<void> fetchUserName() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        username = user.displayName ?? '';
+      });
+    }
+  }
+
+  PreferredSizeWidget _appBar() {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(105),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Hello Bilbis", style: h2Style),
-                  Text("Buy Your favorite desk Here", style: h3Style),
+                  Text("Hello $username", style: h2Style),
+                  const Text("Buy Your favorite desk Here", style: h3Style),
                 ],
               ),
             ],
@@ -51,7 +76,7 @@ class OfficePeripheralListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<Widget?> navigate(Peripheral peripheral) {
+    Future<void> navigate(Peripheral peripheral) {
       return Navigator.push(
         context,
         PageRouteBuilder(
