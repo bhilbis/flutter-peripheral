@@ -96,11 +96,6 @@ class _LoginScreenState extends State<LoginScreen> {
     final email = _email.text;
     final password = _password.text;
 
-    // if (!_isValidEmail(email)) {
-    //   _showSnackBar("Invalid email format. Please include '@'.");
-    //   return;
-    // }
-
     final user = await _auth.loginUserWithEmailAndPassword(email, password);
 
     if (user != null) {

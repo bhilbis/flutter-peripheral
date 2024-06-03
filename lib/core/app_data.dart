@@ -19,7 +19,7 @@ class AppData {
           'It\'s also wireless with Bluetooth and 2.4 GHz connectivity, or you can use the included USB-C cable.'
           'The TH66 Pro has south-facing LEDs for vibrant RGB lighting, and it even has a knob for volume control.'
           'Check it out if you\'re looking for a feature-packed and customizable mechanical keyboard.',
-      price: 469.99,
+      price: 299.99,
       score: 3.5,
       images: [
         AppAsset.epomakerTh66Keyboard1,
@@ -42,7 +42,7 @@ class AppData {
           'Upgrade your gaming setup with the Ergonomic Gaming Desk, featuring a spacious surface and an integrated mouse pad for ultimate precision.'
           'Designed for comfort, this desk offers a sleek, durable design with ample space for all your gear. The ergonomic layout ensures you can game for hours without strain,'
           'while the high-quality mouse pad enhances your control and accuracy. Elevate your gaming experience with the perfect blend of style, functionality, and comfort.',
-      price: 299.99,
+      price: 900.99,
       score: 4.5,
       images: [
         AppAsset.ergonomicGamingDesk1,
@@ -115,7 +115,7 @@ class AppData {
           'it features memory foam ear cushions for long-lasting wear. The 50mm directional drivers deliver crisp,'
           'immersive sound, while the swivel-to-mute noise-cancellation microphone ensures clear communication. '
           'Perfect for long gaming sessions, the Cloud Stinger combines superior comfort and high-quality audio for an unbeatable gaming experience.',
-      price: 40.69,
+      price: 98.69,
       score: 4.0,
       images: [
         AppAsset.hyperxCloudStinger1,
