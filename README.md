@@ -9,7 +9,7 @@
 
 A new Flutter project.
 
-<img src="assets/ss/localhost_51620_(iPhone 12 Pro).png" width="22%" /> <img src="assets/ss/localhost_51620_(iPhone 12 Pro)1.png.png" width="22%" /> <img src="assets/ss/localhost_51620_(iPhone 12 Pro)2.png" width="22%" /> <img src="assets/ss/localhost_51620_(iPhone 12 Pro)3.png" width="22%" /> <img src="assets/ss/localhost_51620_(iPhone 12 Pro)4.png" width="22%" /> <img src="assets/ss/localhost_51620_(iPhone 12 Pro)5.png" width="22%" /> <img src="assets/ss/localhost_51620_(iPhone 12 Pro)6.png" width="22%" /> 
+<img src="assets/ss/localhost_51620_(iPhone 12 Pro).png" width="22%" /> <img src="assets/ss/localhost_51620_(iPhone 12 Pro)1.png" width="22%" /> <img src="assets/ss/localhost_51620_(iPhone 12 Pro)2.png" width="22%" /> <img src="assets/ss/localhost_51620_(iPhone 12 Pro)3.png" width="22%" /> <img src="assets/ss/localhost_51620_(iPhone 12 Pro)4.png" width="22%" /> <img src="assets/ss/localhost_51620_(iPhone 12 Pro)5.png" width="22%" /> <img src="assets/ss/localhost_51620_(iPhone 12 Pro)6.png" width="22%" /> 
 
 ## Getting Started
 
